@@ -59,6 +59,15 @@
 
 #ifndef __KERNEL__
 #include <sys/time.h>
+#if !defined(_STRUCT_TIMESPEC) && !defined(__timespec_defined) && !defined(_TIMESPEC_DEFINED)
+#define _STRUCT_TIMESPEC
+#define __timespec_defined
+#define _TIMESPEC_DEFINED
+struct timespec {
+	long tv_sec;
+	long tv_nsec;
+};
+#endif
 #endif
 #include <linux/compiler.h>
 #include <linux/ioctl.h>
