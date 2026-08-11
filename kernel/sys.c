@@ -1312,8 +1312,16 @@ SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
 	down_read(&uts_sem);
 	memcpy(&tmp, utsname(), sizeof(tmp));
 	up_read(&uts_sem);
+
+	/* Sultan Kernel: Hide custom kernel build strings from apps */
+#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
+	memset(tmp.version, 0, sizeof(tmp.version));
+	snprintf(tmp.version, sizeof(tmp.version), "#1 SMP PREEMPT");
+#endif
+
 	if (copy_to_user(name, &tmp, sizeof(tmp)))
 		return -EFAULT;
+
 
 	if (override_release(name->release, sizeof(name->release)))
 		return -EFAULT;
