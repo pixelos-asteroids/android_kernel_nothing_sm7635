@@ -20,3 +20,5 @@ obj-$(CONFIG_ARM_TEGRA_DEVFREQ)		+= tegra30-devfreq.o
 
 # DEVFREQ Event Drivers
 obj-$(CONFIG_PM_DEVFREQ_EVENT)		+= event/
+obj-$(CONFIG_DEVFREQ_BOOST)		+= devfreq_boost.o
+
